@@ -76,6 +76,11 @@
         document.body.appendChild(a);
         a.click();
     }
+    function pad (str, max) {
+        str = str.toString();
+        return str.length < max ? pad("0" + str, max) : str;
+    }
+
     const month = ["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Oct","Nov","Des"];
 
     $(document).ready(function(){
@@ -87,7 +92,7 @@
         const totalCrowd = urlParams.get('total-crowd');
         const date = new Date();
         const dateString = date.getDate() + ' ' + month[date.getMonth()] + ' ' + date.getFullYear();
-        const timeString = date.getHours() + ':' + date.getMinutes() + ' ' + (date.getHours() > 12 ? 'PM' : 'AM');
+        const timeString = pad(date.getHours(),2) + ':' + pad(date.getMinutes(),2) + ' ' + (date.getHours() > 12 ? 'PM' : 'AM');
         $(".name").html(name);
         $(".location").html(location);
         $(".current-crowd").html(currentCrowd);
@@ -96,10 +101,10 @@
         $(".time").html(timeString);
 
         //  Bug: box shadow is broken in html2canvas
-        html2canvas(document.querySelector("#capture")).then(canvas => {
-            let dataURL = canvas.toDataURL("image/jpeg", 1.0);
-            downloadImage(dataURL);
-        });
+        // html2canvas(document.querySelector("#capture")).then(canvas => {
+        //     let dataURL = canvas.toDataURL("image/jpeg", 1.0);
+        //     downloadImage(dataURL);
+        // });
         
          
     });
